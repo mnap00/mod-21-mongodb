@@ -2,9 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/nodeappdatabase', {
-    useMongoClient: true
-});
+mongoose.connect('mongodb://localhost/nodeappdatabase');
 
 const userSchema = new Schema({
     name: String,
@@ -30,4 +28,52 @@ userSchema.pre('save', function(next) {
 });
 
 const User = mongoose.model('User', userSchema);
+
+const kenny = new User({
+    name: 'Kenny',
+    username: 'Kenny_the_boy',
+    password: 'password'
+});
+
+kenny.manify(function(err, name) {
+    if (err) throw err;
+    console.log('Your new name is: ' + name);
+});
+
+kenny.save(function(err) {
+    if (err) throw err;
+    console.log('User ' + kenny.name + ' saved successfuly');
+});
+
+const benny = new User({
+    name: 'Benny',
+    username: 'Benny_the_boy',
+    password: 'password'
+});
+
+benny.manify(function(err, name) {
+    if (err) throw err;
+    console.log('Your new name is: ' + name);
+});
+
+benny.save(function(err) {
+    if (err) throw err;
+    console.log('User ' + benny.name + ' saved successfuly');
+});
+
+const mark = new User({
+    name: 'Mark',
+    username: 'Mark_the_boy',
+    password: 'password'
+});
+
+mark.manify(function(err, name) {
+    if (err) throw err;
+    console.log('Your new name is: ' + name);
+});
+
+mark.save(function(err) {
+    if (err) throw err;
+    console.log('User ' + mark.name + ' saved successfuly');
+});
 
