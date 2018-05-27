@@ -98,8 +98,7 @@ const updateUsername = function() {
         {new: true}, function(err, user) {
             if (err) throw err;
             console.log('Updated user name is ' + user.username);
-        }
-    );
+        });
 };
 
 const findMarkAndDelete = function() {
