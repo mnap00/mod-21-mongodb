@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/nodeappdatabase');
+mongoose.connect('mongodb://stefan:stefan@ds13350.mlab.com:33550/database-1');
 
 const userSchema = new Schema({
     name: String,
