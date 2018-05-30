@@ -1,6 +1,9 @@
 /*eslint-disable no-console*/
+const express = require('express');
+const app = express();
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const PORT = process.env.PORT;
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://stefan:stefan@ds133550.mlab.com:33550/database-1');
@@ -135,3 +138,9 @@ Promise.all([kenny.save(), mark.save(), benny.save()])
     .then(findKennyAndDelete)
     .then(findBennyAndRemove)
     .catch(console.log.bind(console));
+
+app.get('/', (req, res) => {
+    res.send('Script finished successfully');
+});
+
+app.listen(PORT);
