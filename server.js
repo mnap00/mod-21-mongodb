@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://stefan:stefan@ds133550.mlab.com:33550/database-1');
@@ -32,39 +32,6 @@ userSchema.pre('save', function(next) {
 });
 
 const User = mongoose.model('User', userSchema);
-
-const kenny = new User({
-    name: 'Kenny',
-    username: 'Kenny_the_boy',
-    password: 'password'
-});
-
-kenny.manify(function(err, name) {
-    if (err) throw err;
-    console.log('Your new name is: ' + name);
-});
-
-const benny = new User({
-    name: 'Benny',
-    username: 'Benny_the_boy',
-    password: 'password'
-});
-
-benny.manify(function(err, name) {
-    if (err) throw err;
-    console.log('Your new name is: ' + name);
-});
-
-const mark = new User({
-    name: 'Mark',
-    username: 'Mark_the_boy',
-    password: 'password'
-});
-
-mark.manify(function(err, name) {
-    if (err) throw err;
-    console.log('Your new name is: ' + name);
-});
 
 const findAllUsers = function() {
     return User.find({}, function(err, res) {
@@ -129,17 +96,51 @@ const findBennyAndRemove = function() {
     });
 };
 
-Promise.all([kenny.save(), mark.save(), benny.save()])
-    .then(findAllUsers)
-    .then(findSpecificRecord)
-    .then(updateUserPassword)
-    .then(updateUsername)
-    .then(findMarkAndDelete)
-    .then(findKennyAndDelete)
-    .then(findBennyAndRemove)
-    .catch(console.log.bind(console));
-
 app.get('/', (req, res) => {
+
+    const kenny = new User({
+        name: 'Kenny',
+        username: 'Kenny_the_boy',
+        password: 'password'
+    });
+
+    kenny.manify(function(err, name) {
+        if (err) throw err;
+        console.log('Your new name is: ' + name);
+    });
+
+    const benny = new User({
+        name: 'Benny',
+        username: 'Benny_the_boy',
+        password: 'password'
+    });
+
+    benny.manify(function(err, name) {
+        if (err) throw err;
+        console.log('Your new name is: ' + name);
+    });
+
+    const mark = new User({
+        name: 'Mark',
+        username: 'Mark_the_boy',
+        password: 'password'
+    });
+
+    mark.manify(function(err, name) {
+        if (err) throw err;
+        console.log('Your new name is: ' + name);
+    });
+
+    Promise.all([kenny.save(), mark.save(), benny.save()])
+        .then(findAllUsers)
+        .then(findSpecificRecord)
+        .then(updateUserPassword)
+        .then(updateUsername)
+        .then(findMarkAndDelete)
+        .then(findKennyAndDelete)
+        .then(findBennyAndRemove)
+        .catch(console.log.bind(console));
+
     res.send('Script finished successfully');
 });
 
